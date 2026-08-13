@@ -1,4 +1,5 @@
 import pandas as pd
+import matplotlib.pyplot as plt
 
 df = pd.read_csv("data/student_data.csv")
 
@@ -70,6 +71,97 @@ df["average_grade"] = (
     df["G1"] + df["G2"] + df["G3"]
 ) / 3
 
+
+
 print("\nAverage grade of each student:")
 print(df[["G1", "G2", "G3", "average_grade"]].head())
 
+average_grades = [
+    df["G1"].mean(),
+    df["G2"].mean(),
+    df["G3"].mean()
+]
+
+grade_names = [
+    "G1",
+    "G2",
+    "G3"
+]
+
+plt.figure(figsize=(8, 5))
+
+plt.bar(grade_names, average_grades)
+
+plt.title("Average Student Grades")
+plt.xlabel("Grade Period")
+plt.ylabel("Average Grade")
+
+plt.savefig("images/average_grades.png")
+
+plt.show()
+
+
+
+
+plt.figure(figsize=(8, 5))
+
+plt.hist(df["G3"], bins=10)
+
+plt.title("Distribution of Final Grades")
+plt.xlabel("Final Grade (G3)")
+plt.ylabel("Number of Students")
+
+plt.savefig("images/final_grade_distribution.png")
+
+plt.show()
+
+
+
+studytime_performance = df.groupby("studytime")["G3"].mean()
+
+plt.figure(figsize=(8, 5))
+
+plt.bar(
+    studytime_performance.index.astype(str),
+    studytime_performance.values
+)
+
+plt.title("Study Time vs Final Grade")
+plt.xlabel("Study Time Category")
+plt.ylabel("Average Final Grade")
+
+plt.savefig("images/studytime_vs_grade.png")
+
+plt.show()
+
+
+
+failure_performance = df.groupby("failures")["G3"].mean()
+
+plt.figure(figsize=(8, 5))
+
+plt.bar(
+    failure_performance.index.astype(str),
+    failure_performance.values
+)
+
+plt.title("Previous Failures vs Final Grade")
+plt.xlabel("Number of Previous Failures")
+plt.ylabel("Average Final Grade")
+
+plt.savefig("images/failures_vs_grade.png")
+
+plt.show()
+
+
+plt.figure(figsize=(8, 5))
+
+plt.scatter(df["absences"], df["G3"])
+
+plt.title("Absences vs Final Grade")
+plt.xlabel("Number of Absences")
+plt.ylabel("Final Grade (G3)")
+
+plt.savefig("images/absences_vs_grade.png")
+
+plt.show()
