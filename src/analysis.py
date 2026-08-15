@@ -165,3 +165,53 @@ plt.ylabel("Final Grade (G3)")
 plt.savefig("images/absences_vs_grade.png")
 
 plt.show()
+
+
+
+# Create performance categories
+def performance_level(score):
+    if score >= 15:
+        return "High"
+    elif score >= 10:
+        return "Medium"
+    else:
+        return "Low"
+
+
+df["performance_level"] = df["G3"].apply(performance_level)
+
+print("\nPerformance level distribution:")
+print(df["performance_level"].value_counts())
+
+performance_percentage = (
+    df["performance_level"]
+    .value_counts(normalize=True) * 100
+)
+
+print("\nPerformance percentages:")
+print(performance_percentage)
+
+higher_education = df.groupby("higher")["G3"].mean()
+
+print("\nAverage G3 by higher education interest:")
+print(higher_education)
+
+school_support = df.groupby("schoolsup")["G3"].mean()
+
+print("\nAverage G3 by school support:")
+print(school_support)
+
+family_support = df.groupby("famsup")["G3"].mean()
+
+print("\nAverage G3 by family support:")
+print(family_support)
+
+summary = df.groupby("performance_level").agg(
+    Average_G3=("G3", "mean"),
+    Average_StudyTime=("studytime", "mean"),
+    Average_Absences=("absences", "mean"),
+    Average_Failures=("failures", "mean")
+)
+
+print("\nPerformance Summary:")
+print(summary)
