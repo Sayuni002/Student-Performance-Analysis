@@ -215,3 +215,88 @@ summary = df.groupby("performance_level").agg(
 
 print("\nPerformance Summary:")
 print(summary)
+
+
+# DAY 7 - Advanced Visualizations
+
+
+performance_counts = df["performance_level"].value_counts()
+
+plt.figure(figsize=(8, 5))
+
+plt.bar(
+    performance_counts.index,
+    performance_counts.values
+)
+
+plt.title("Student Performance Levels")
+plt.xlabel("Performance Level")
+plt.ylabel("Number of Students")
+
+plt.savefig("images/performance_levels.png")
+
+plt.show()
+
+higher_education = df.groupby("higher")["G3"].mean()
+
+plt.figure(figsize=(8, 5))
+
+plt.bar(
+    higher_education.index,
+    higher_education.values
+)
+
+plt.title("Higher Education Interest vs Final Grade")
+plt.xlabel("Interested in Higher Education")
+plt.ylabel("Average Final Grade")
+
+plt.savefig("images/higher_education_vs_grade.png")
+
+plt.show()
+
+school_support = df.groupby("schoolsup")["G3"].mean()
+
+plt.figure(figsize=(8, 5))
+
+plt.bar(
+    school_support.index,
+    school_support.values
+)
+
+plt.title("School Support vs Final Grade")
+plt.xlabel("School Support")
+plt.ylabel("Average Final Grade")
+
+plt.savefig("images/school_support_vs_grade.png")
+
+plt.show()
+
+family_support = df.groupby("famsup")["G3"].mean()
+
+plt.figure(figsize=(8, 5))
+
+plt.bar(
+    family_support.index,
+    family_support.values
+)
+
+plt.title("Family Support vs Final Grade")
+plt.xlabel("Family Support")
+plt.ylabel("Average Final Grade")
+
+plt.savefig("images/family_support_vs_grade.png")
+
+plt.show()
+
+
+plt.figure(figsize=(8, 5))
+
+plt.scatter(df["G1"], df["G3"])
+
+plt.title("First Period Grade vs Final Grade")
+plt.xlabel("G1 - First Period Grade")
+plt.ylabel("G3 - Final Grade")
+
+plt.savefig("images/g1_vs_g3.png")
+
+plt.show()
