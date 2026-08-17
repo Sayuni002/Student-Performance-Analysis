@@ -300,3 +300,107 @@ plt.ylabel("G3 - Final Grade")
 plt.savefig("images/g1_vs_g3.png")
 
 plt.show()
+
+print("\nAverage Final Grade (G3):")
+print(round(df["G3"].mean(), 2))
+
+print("\nHighest Final Grade:")
+print(df["G3"].max())
+
+print("\nLowest Final Grade:")
+print(df["G3"].min())
+
+
+df["performance_level"]
+
+print("\nPerformance Level Count:")
+print(df["performance_level"].value_counts())
+
+print("\nPerformance Level Percentage:")
+print(
+    (df["performance_level"].value_counts(normalize=True) * 100).round(2)
+)
+
+print("\nAverage G3 by Study Time:")
+print(
+    df.groupby("studytime")["G3"]
+    .mean()
+    .round(2)
+)
+
+print("\nAverage G3 by Previous Failures:")
+print(
+    df.groupby("failures")["G3"]
+    .mean()
+    .round(2)
+)
+
+df["absence_group"] = pd.cut(
+    df["absences"],
+    bins=[-1, 5, 10, 20, 100],
+    labels=["Low", "Moderate", "High", "Very High"]
+)
+
+print("\nAverage G3 by Absence Group:")
+print(
+    df.groupby("absence_group", observed=False)["G3"]
+    .mean()
+    .round(2)
+)
+
+print("\nCorrelation with Final Grade (G3):")
+
+correlation = df[
+    ["G1", "G2", "studytime", "failures", "absences", "G3"]
+].corr()["G3"].sort_values(ascending=False)
+
+print(correlation.round(2))
+
+
+print("\nAverage G3 by Higher Education Interest:")
+
+print(
+    df.groupby("higher")["G3"]
+    .mean()
+    .round(2)
+)
+
+
+print("\nAverage G3 by School Support:")
+
+print(
+    df.groupby("schoolsup")["G3"]
+    .mean()
+    .round(2)
+)
+
+print("\nAverage G3 by Family Support:")
+
+print(
+    df.groupby("famsup")["G3"]
+    .mean()
+    .round(2)
+)
+
+final_summary = pd.DataFrame({
+    "Metric": [
+        "Total Students",
+        "Average G3",
+        "Highest G3",
+        "Lowest G3",
+        "Average Absences",
+        "Average Failures"
+    ],
+    
+    "Value": [
+        len(df),
+        round(df["G3"].mean(), 2),
+        df["G3"].max(),
+        df["G3"].min(),
+        round(df["absences"].mean(), 2),
+        round(df["failures"].mean(), 2)
+    ]
+})
+
+print("\n========== FINAL SUMMARY ==========")
+print(final_summary)
