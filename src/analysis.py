@@ -217,7 +217,7 @@ print("\nPerformance Summary:")
 print(summary)
 
 
-# DAY 7 - Advanced Visualizations
+
 
 
 performance_counts = df["performance_level"].value_counts()
@@ -404,3 +404,4 @@ final_summary = pd.DataFrame({
 
 print("\n========== FINAL SUMMARY ==========")
 print(final_summary)
+
